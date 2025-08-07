@@ -1,1 +1,89 @@
-This is a test.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EnderBK Hosted Pages</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #0c0c0c;
+      color: #eee;
+      padding: 2em;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2em;
+    }
+    .page-list {
+      display: grid;
+      gap: 1em;
+      max-width: 800px;
+      margin: auto;
+    }
+    .page {
+      background: #1c1c1c;
+      padding: 1em;
+      border-radius: 10px;
+      border: 1px solid #333;
+    }
+    .page a {
+      color: #00bfff;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .page code {
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>📡 EnderBK Hosted Pages</h1>
+  <div class="page-list" id="page-list">Loading...</div>
+
+  <script>
+    const repo = "enderbk0/enderbk0.github.io";
+    const pageList = document.getElementById("page-list");
+
+    fetch(`https://api.github.com/repos/${repo}/contents/`)
+      .then(res => res.json())
+      .then(files => {
+        const folders = files.filter(f => f.type === "dir");
+
+        if (folders.length === 0) {
+          pageList.innerHTML = "<p>No hosted folders found.</p>";
+          return;
+        }
+
+        pageList.innerHTML = "";
+
+        folders.forEach(folder => {
+          const folderName = folder.name;
+          const jsonURL = `https://enderbk0.github.io/${folderName}/${folderName}.json`;
+
+          fetch(jsonURL)
+            .then(res => {
+              if (!res.ok) throw new Error("No JSON found");
+              return res.json();
+            })
+            .then(data => {
+              const div = document.createElement("div");
+              div.className = "page";
+              div.innerHTML = `
+                <a href="./${folderName}/">${data.title || folderName}</a><br>
+                <code>enderbk://${data.domain || folderName}</code><br>
+                <p>${data.description || "No description."}</p>
+              `;
+              pageList.appendChild(div);
+            })
+            .catch(() => {
+              // Skip folders with no readable JSON
+            });
+        });
+      })
+      .catch(err => {
+        pageList.innerHTML = "<p>Error loading folders.</p>";
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
