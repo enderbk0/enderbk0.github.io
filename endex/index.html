@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Endex Search</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #0f0f0f;
+      color: #f1f1f1;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #00eaff;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      background: #1a1a1a;
+      color: #fff;
+    }
+    .result {
+      padding: 1rem;
+      background: #1e1e1e;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 4px solid #00eaff;
+    }
+    .result a {
+      color: #00eaff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .result p {
+      margin: 0.5rem 0 0;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔎 Endex Search</h1>
+  <input id="searchBox" type="text" placeholder="Search pages..." value="" />
+  <div id="results">Loading...</div>
+
+  <script>
+    const results = document.getElementById("results");
+    const searchBox = document.getElementById("searchBox");
+
+    // Read query from URL (enderbk://search?q=...)
+    const query = new URLSearchParams(window.location.search).get("q")?.toLowerCase() || "";
+
+    // Apply query to box
+    searchBox.value = query;
+
+    async function searchFolders(q) {
+      results.innerHTML = "Searching...";
+      try {
+        const res = await fetch("https://api.github.com/repos/enderbk0/enderbk0.github.io/contents");
+        const data = await res.json();
+
+        const folders = data.filter(item => item.type === "dir");
+        const matches = [];
+
+        for (const folder of folders) {
+          const folderName = folder.name;
+          const jsonUrl = `https://raw.githubusercontent.com/enderbk0/enderbk0.github.io/main/${folderName}/${folderName}.json`;
+
+          try {
+            const metaRes = await fetch(jsonUrl);
+            const meta = await metaRes.json();
+
+            const title = meta.title?.toLowerCase() || "";
+            const description = meta.description?.toLowerCase() || "";
+            const domain = meta.domain?.toLowerCase() || "";
+
+            if (
+              title.includes(q) ||
+              description.includes(q) ||
+              domain.includes(q)
+            ) {
+              matches.push({
+                title: meta.title || folderName,
+                description: meta.description || "",
+                link: `/${folderName}/`
+              });
+            }
+          } catch (err) {
+            // Skip folders with missing or bad JSON
+          }
+        }
+
+        if (matches.length === 0) {
+          results.innerHTML = "<p>No results found.</p>";
+        } else {
+          results.innerHTML = matches.map(match => `
+            <div class="result">
+              <a href="${match.link}">${match.title}</a>
+              <p>${match.description}</p>
+            </div>
+          `).join("");
+        }
+      } catch (err) {
+        results.innerHTML = "<p>Error loading results.</p>";
+      }
+    }
+
+    // Initial search on page load
+    searchFolders(query);
+
+    // Instant search on input
+    searchBox.addEventListener("input", () => {
+      const newQuery = searchBox.value.trim().toLowerCase();
+      history.replaceState(null, "", "?q=" + encodeURIComponent(newQuery));
+      searchFolders(newQuery);
+    });
+  </script>
+</body>
+</html>
