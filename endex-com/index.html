@@ -1,31 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Endex</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Basic reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(135deg, #1b1b2f, #162447);
+      color: #eee;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    h1.logo {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    h1.logo span { color: #00bcd4; }
+    .tagline {
+      margin-bottom: 30px;
+      font-size: 1.2rem;
+      color: #aaa;
+    }
+    .search-box {
+      display: flex;
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 30px;
+    }
+    .search-box input {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 8px 0 0 8px;
+      border: none;
+      font-size: 1rem;
+    }
+    .search-box button {
+      padding: 12px 20px;
+      border: none;
+      background-color: #00bcd4;
+      color: #000;
+      font-size: 1rem;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .search-box button:hover { background-color: #0097a7; }
+    .links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .links a {
+      color: #00bcd4;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 14px;
+      border: 1px solid #00bcd4;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .links a:hover { background-color: #00bcd4; color: #000; }
+    footer {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: auto;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="logo">Endex<span>.com</span></h1>
-    <p class="tagline">The starting point of the EnderNet.</p>
+  <h1 class="logo">Endex<span>.com</span></h1>
+  <p class="tagline">Your gateway to the EnderNet.</p>
 
-    <div class="search-box">
-      <input type="text" placeholder="Search the EnderNet..." />
-      <button>Search</button>
-    </div>
+  <form class="search-box" id="searchForm">
+    <input type="text" id="searchInput" placeholder="Search the EnderNet..." autocomplete="off">
+    <button type="submit">Go</button>
+  </form>
 
-    <div class="links">
-      <a href="enderbk://home-com">Home</a>
-      <a href="enderbk://apps">Apps</a>
-      <a href="enderbk://settings">Settings</a>
-      <a href="enderbk://about">About</a>
-    </div>
-
-    <footer>
-      <p>Powered by EnderBK LLC • Protocol: <code>enderbk://endex</code></p>
-    </footer>
+  <div class="links">
+    <a href="enderbk://home-com">Home</a>
+    <a href="enderbk://apps">Apps</a>
+    <a href="enderbk://settings">Settings</a>
+    <a href="enderbk://about">About</a>
   </div>
+
+  <footer>
+    <p>Protocol: <code>enderbk://endex</code></p>
+  </footer>
+
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const query = document.getElementById('searchInput').value.trim();
+      if (!query) return;
+      // Redirect to your search protocol handler
+      window.location.href = `enderbk://search-${encodeURIComponent(query)}`;
+    });
+  </script>
 </body>
 </html>
