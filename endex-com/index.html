@@ -1,110 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Endex</title>
+  <meta charset="UTF-8" />
+  <title>Endex - Search EnderBK Hosted Pages</title>
   <style>
-    /* Basic reset */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: linear-gradient(135deg, #1b1b2f, #162447);
+      font-family: sans-serif;
+      background: #0c0c0c;
       color: #eee;
-      font-family: 'Segoe UI', sans-serif;
+      padding: 2em;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
       min-height: 100vh;
-      padding: 20px;
     }
-    h1.logo {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      color: #fff;
+    header {
+      text-align: center;
+      margin-bottom: 1em;
     }
-    h1.logo span { color: #00bcd4; }
-    .tagline {
-      margin-bottom: 30px;
-      font-size: 1.2rem;
-      color: #aaa;
+    header h1 {
+      margin: 0.2em 0;
+      font-size: 2.4em;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: #00bfff;
     }
-    .search-box {
-      display: flex;
+    header p.version {
+      font-size: 1em;
+      color: #555;
+      margin-top: 0.2em;
+      font-style: italic;
+    }
+    #search-container {
+      max-width: 600px;
+      margin: 0 auto 2em auto;
       width: 100%;
-      max-width: 500px;
-      margin-bottom: 30px;
     }
-    .search-box input {
-      flex: 1;
-      padding: 12px 16px;
-      border-radius: 8px 0 0 8px;
+    #search-input {
+      width: 100%;
+      padding: 0.75em 1em;
+      font-size: 1.2em;
+      border-radius: 10px;
       border: none;
-      font-size: 1rem;
+      outline: none;
+      box-shadow: 0 0 8px #00bfff88;
+      background: #121212;
+      color: #eee;
+      transition: box-shadow 0.3s ease;
     }
-    .search-box button {
-      padding: 12px 20px;
-      border: none;
-      background-color: #00bcd4;
-      color: #000;
-      font-size: 1rem;
-      border-radius: 0 8px 8px 0;
-      cursor: pointer;
-      transition: background 0.2s;
+    #search-input:focus {
+      box-shadow: 0 0 12px #00bfffcc;
     }
-    .search-box button:hover { background-color: #0097a7; }
-    .links {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 40px;
+    .page-list {
+      display: grid;
+      gap: 1em;
+      max-width: 800px;
+      margin: auto;
+      margin-top: auto; /* push to bottom */
     }
-    .links a {
-      color: #00bcd4;
+    .page {
+      background: #1c1c1c;
+      padding: 1em;
+      border-radius: 10px;
+      border: 1px solid #333;
+      transition: background 0.3s ease;
+    }
+    .page:hover {
+      background: #222244;
+    }
+    .page a {
+      color: #00bfff;
+      font-weight: bold;
+      font-size: 1.3em;
       text-decoration: none;
-      font-weight: 500;
-      padding: 8px 14px;
-      border: 1px solid #00bcd4;
-      border-radius: 6px;
-      transition: background 0.2s;
     }
-    .links a:hover { background-color: #00bcd4; color: #000; }
-    footer {
-      font-size: 0.9rem;
+    .page a:hover {
+      text-decoration: underline;
+    }
+    .page code {
+      color: #aaa;
+      user-select: all;
+    }
+    #message {
+      max-width: 600px;
+      margin: 2em auto;
+      text-align: center;
       color: #666;
-      margin-top: auto;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
-  <h1 class="logo">Endex<span>.com</span></h1>
-  <p class="tagline">Your gateway to the EnderNet.</p>
+  <header>
+    <h1>Endex</h1>
+    <p class="version">Search EnderBK Hosted Pages</p>
+  </header>
 
-  <form class="search-box" id="searchForm">
-    <input type="text" id="searchInput" placeholder="Search the EnderNet..." autocomplete="off">
-    <button type="submit">Go</button>
-  </form>
-
-  <div class="links">
-    <a href="enderbk://home-com">Home</a>
-    <a href="enderbk://apps">Apps</a>
-    <a href="enderbk://settings">Settings</a>
-    <a href="enderbk://about">About</a>
+  <div id="search-container">
+    <input id="search-input" type="search" placeholder="Search pages..." aria-label="Search pages" autocomplete="off" />
   </div>
 
-  <footer>
-    <p>Protocol: <code>enderbk://endex</code></p>
-  </footer>
+  <div class="page-list" id="page-list">
+    Loading pages...
+  </div>
+
+  <div id="message" role="alert" aria-live="polite"></div>
 
   <script>
-    document.getElementById('searchForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const query = document.getElementById('searchInput').value.trim();
-      if (!query) return;
-      // Redirect to your search protocol handler
-      window.location.href = `enderbk://search-${encodeURIComponent(query)}`;
+    const repo = "enderbk0/enderbk0.github.io";
+    const pageList = document.getElementById("page-list");
+    const searchInput = document.getElementById("search-input");
+    const message = document.getElementById("message");
+
+    let allPages = [];
+
+    async function loadPages() {
+      try {
+        const res = await fetch(`https://api.github.com/repos/${repo}/contents/`);
+        const files = await res.json();
+        const folders = files.filter(f => f.type === "dir");
+
+        if (folders.length === 0) {
+          pageList.innerHTML = "";
+          message.textContent = "No hosted folders found.";
+          return;
+        }
+
+        // Load JSON metadata from each folder with cache-busting
+        const promises = folders.map(async folder => {
+          const folderName = folder.name;
+          const jsonURL = `https://enderbk0.github.io/${folderName}/${folderName}.json?t=${Date.now()}`;
+          try {
+            const res = await fetch(jsonURL);
+            if (!res.ok) throw new Error("No JSON found");
+            const data = await res.json();
+            return {
+              folderName,
+              title: data.title || folderName,
+              domain: data.domain || folderName,
+              description: data.description || "No description."
+            };
+          } catch {
+            // If no JSON, fallback to folderName only
+            return {
+              folderName,
+              title: folderName,
+              domain: folderName,
+              description: "No description."
+            };
+          }
+        });
+
+        allPages = await Promise.all(promises);
+        message.textContent = "";
+        displayPages(allPages);
+      } catch (e) {
+        pageList.innerHTML = "";
+        message.textContent = "Error loading pages. Please try again later.";
+        console.error(e);
+      }
+    }
+
+    function displayPages(pages) {
+      if (pages.length === 0) {
+        pageList.innerHTML = "";
+        message.textContent = "No results found.";
+        return;
+      }
+
+      message.textContent = "";
+      pageList.innerHTML = "";
+
+      pages.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "page";
+        div.innerHTML = `
+          <a href="./${p.folderName}/" title="${p.title}">${p.title}</a><br>
+          <code>enderbk://${p.domain}</code><br>
+          <p>${p.description}</p>
+        `;
+        pageList.appendChild(div);
+      });
+    }
+
+    searchInput.addEventListener("input", e => {
+      const query = e.target.value.trim().toLowerCase();
+      if (!query) {
+        displayPages(allPages);
+        return;
+      }
+
+      // Filter pages by title, domain, or description
+      const filtered = allPages.filter(p =>
+        p.title.toLowerCase().includes(query) ||
+        p.domain.toLowerCase().includes(query) ||
+        p.description.toLowerCase().includes(query)
+      );
+
+      displayPages(filtered);
     });
+
+    loadPages();
   </script>
 </body>
 </html>
