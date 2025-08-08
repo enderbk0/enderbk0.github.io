@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Agent Detector</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0c0c0c;
+      color: #eee;
+      padding: 2em;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.4em;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      color: #00bfff;
+      margin-bottom: 1em;
+    }
+    #ua-string {
+      background: #1c1c1c;
+      border-radius: 10px;
+      padding: 1.5em;
+      max-width: 700px;
+      word-break: break-word;
+      border: 1px solid #333;
+      box-shadow: 0 0 15px #00bfff66;
+      font-family: monospace;
+      font-size: 1.1em;
+      user-select: all;
+    }
+  </style>
+</head>
+<body>
+  <h1>Endex</h1>
+  <div id="ua-string" aria-label="Your user agent" role="textbox" tabindex="0"></div>
+
+  <script>
+    document.getElementById("ua-string").textContent = navigator.userAgent;
+  </script>
+</body>
+</html>
