@@ -1,0 +1,154 @@
+/* Variables */
+:root {
+    --bg-color: #0d1117;       /* GitHub Dark Dimmed */
+    --card-bg: #161b22;        /* Lighter card background */
+    --text-main: #c9d1d9;      /* Off-white text */
+    --text-muted: #8b949e;     /* Grey text */
+    --accent: #238636;         /* GitHub Green */
+    --accent-hover: #2ea043;   
+    --border: #30363d;
+    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+/* Reset & Base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.2s; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* Utilities */
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+.section { padding: 80px 0; }
+.section-title { font-size: 2rem; margin-bottom: 40px; text-align: center; color: #fff; }
+.highlight { color: #58a6ff; /* Soft Blue highlight */ }
+
+/* Navbar */
+.navbar {
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    background: rgba(13, 17, 23, 0.95);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--border);
+}
+.nav-container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-weight: bold; font-size: 1.2rem; font-family: var(--font-mono); }
+.nav-links { display: flex; gap: 20px; }
+.nav-links a:hover { color: var(--accent); }
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 100px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid var(--border);
+    margin-bottom: 20px;
+}
+.hero h1 { font-size: 3rem; margin-bottom: 10px; }
+.tagline { font-size: 1.2rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 30px; }
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+.btn.primary { background-color: var(--accent); color: white; }
+.btn.primary:hover { background-color: var(--accent-hover); }
+.btn.secondary { background-color: transparent; border-color: var(--border); color: var(--text-main); margin-left: 10px; }
+.btn.secondary:hover { border-color: var(--text-muted); background-color: var(--card-bg); }
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+.project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 20px;
+    transition: transform 0.2s, border-color 0.2s;
+}
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--text-muted);
+}
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.card-header h3 { font-size: 1.2rem; }
+.badge {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: #30363d;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+.card-links a { color: #58a6ff; font-size: 0.9rem; margin-top: 15px; display: inline-block; }
+.card-links a:hover { text-decoration: underline; }
+
+/* Skills */
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+.skills-list li {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1rem;
+}
+
+/* Contact & Footer */
+.contact-wrapper { text-align: center; }
+footer {
+    text-align: center;
+    padding: 40px 0;
+    margin-top: 40px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+footer a { color: #58a6ff; }
+
+/* Responsive */
+@media (max-width: 600px) {
+    .hero h1 { font-size: 2rem; }
+    .nav-links { display: none; } /* Simplified for mobile */
+    .btn { display: block; margin: 10px auto; width: 100%; max-width: 300px; }
+    .btn.secondary { margin-left: auto; }
+}
+
+/* Simple Animation Classes */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s forwards;
+}
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
