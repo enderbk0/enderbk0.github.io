@@ -74,59 +74,67 @@
     </section>
 
     <section id="projects" class="section">
-      <div class="container">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="projects-grid">
+  <div class="container">
+    <h2 class="section-title">Featured Projects</h2>
 
-          <!-- UPDATED: Removed Galaxy A11/M11 project -->
-          <article class="project-card">
-            <div class="card-header">
-              <h3>Legacy Device Revival</h3>
-              <span class="badge">Android / Linux</span>
-            </div>
-            <p>
-              I’m currently working on reviving older Samsung devices like
-              <strong>SM-T231</strong> and <strong>T230NU</strong>—documenting the process,
-              creating patches/build notes, and extending the life of legacy hardware.
-            </p>
-            <div class="card-links">
-              <a
-                href="https://github.com/enderbk0"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View Legacy Device Revival documentation"
-              >
-                View Documentation &rarr;
-              </a>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="card-header">
-              <h3>enderbk0.github.io</h3>
-              <span class="badge">HTML/CSS</span>
-            </div>
-            <p>My website hosted on GitHub Pages. Built with clean, optimized CSS.</p>
-            <div class="card-links">
-              <a
-                href="https://github.com/enderbk0/enderbk0.github.io"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View website repository"
-              >
-                View Repository &rarr;
-              </a>
-            </div>
-          </article>
-
-          <article class="project-card placeholder">
-            <h3>More coming soon...</h3>
-            <p>Currently working on new weird stuff...</p>
-          </article>
-
+    <!-- NOTE: keeping your original class name, but ensuring content renders -->
+    <div class="projects-grid" style="display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+      
+      <article class="project-card" style="padding:16px; border:1px solid rgba(255,255,255,.15); border-radius:14px;">
+        <div class="card-header" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+          <h3 style="margin:0;">Legacy Device Revival</h3>
+          <span class="badge" style="padding:4px 10px; border-radius:999px; font-size:.85rem; border:1px solid rgba(255,255,255,.15);">
+            Android / Linux
+          </span>
         </div>
-      </div>
-    </section>
+
+        <p style="margin:12px 0 0;">
+          Reviving older Samsung devices like <strong>SM-T231</strong> and <strong>T230NU</strong>.
+          I document the process, patches, build notes, and tips for keeping legacy hardware useful.
+        </p>
+
+        <div class="card-links" style="margin-top:12px;">
+          <!-- CHANGE THIS LINK to your actual documentation repo/page -->
+          <a
+            href="https://github.com/enderbk0"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View Legacy Device Revival documentation"
+            style="text-decoration:none;"
+          >
+            View Documentation &rarr;
+          </a>
+        </div>
+      </article>
+
+      <article class="project-card" style="padding:16px; border:1px solid rgba(255,255,255,.15); border-radius:14px;">
+        <div class="card-header" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+          <h3 style="margin:0;">enderbk0.github.io</h3>
+          <span class="badge" style="padding:4px 10px; border-radius:999px; font-size:.85rem; border:1px solid rgba(255,255,255,.15);">
+            HTML/CSS
+          </span>
+        </div>
+
+        <p style="margin:12px 0 0;">
+          My website hosted on GitHub Pages. Built with clean, optimized CSS.
+        </p>
+
+        <div class="card-links" style="margin-top:12px;">
+          <a
+            href="https://github.com/enderbk0/enderbk0.github.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View website repository"
+            style="text-decoration:none;"
+          >
+            View Repository &rarr;
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
 
     <section id="skills" class="section alt-bg">
       <div class="container">
