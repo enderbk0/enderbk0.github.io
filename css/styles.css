@@ -407,3 +407,45 @@ footer a:hover { color: var(--link-hover); }
 @keyframes fadeInUp {
   to { opacity: 1; transform: translateY(0); }
 }
+/* ===== Projects visibility failsafe (put at END of file) ===== */
+
+/* Make sure the section itself isn't transparent */
+#projects {
+  background: transparent;
+}
+
+/* Force the grid to actually render and not collapse */
+#projects .projects-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+  gap: 20px !important;
+  margin-top: 16px;
+}
+
+/* Force cards to be visible even if CSS variables break */
+#projects .project-card {
+  background: var(--card-bg, rgba(255,255,255,0.06)) !important;
+  border: 1px solid var(--border, rgba(255,255,255,0.18)) !important;
+  color: var(--text, #fff) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+}
+
+/* Fix text inside cards */
+#projects .project-card p,
+#projects .project-card h3,
+#projects .badge {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* If badge blends in, force contrast */
+#projects .badge {
+  background: rgba(255,255,255,0.08) !important;
+}
+
+/* If links blend in */
+#projects .card-links a {
+  color: var(--link, #7ab7ff) !important;
+}
