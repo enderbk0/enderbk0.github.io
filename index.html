@@ -1,123 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="EnderBK">
-    <title>EnderBK</title>
-    
-    <link rel="stylesheet" href="assets/css/styles.css">
-    
-    <link rel="icon" type="image/x-icon" href="https://github.com/enderbk0.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EnderBK" />
+  <title>EnderBK</title>
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!-- Favicon / icons -->
+  <link rel="icon" type="image/png" href="https://github.com/enderbk0.png" />
+  <link rel="apple-touch-icon" href="https://github.com/enderbk0.png" />
 </head>
+
 <body>
+  <!-- Accessibility: skip link -->
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <nav class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">EnderBK</a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+  <div id="top"></div>
 
-    <header class="hero">
-        <div class="container hero-content">
-            <img src="https://github.com/enderbk0.png" alt="EnderBK Avatar" class="avatar fade-in">
-            <h1 class="fade-in">Hi, I'm <span class="highlight">EnderBK</span>.</h1>
-            <p class="tagline fade-in">doing werid stuff...</p>
-            <div class="cta-buttons fade-in">
-                <a href="#projects" class="btn primary">View Projects</a>
-                <a href="https://github.com/enderbk0" target="_blank" class="btn secondary">GitHub Profile</a>
-            </div>
-        </div>
-    </header>
+  <nav class="navbar" aria-label="Primary navigation">
+    <div class="container nav-container">
+      <a href="#top" class="logo">EnderBK</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
+  <header class="hero">
+    <div class="container hero-content">
+      <img
+        src="https://github.com/enderbk0.png"
+        alt="EnderBK avatar"
+        class="avatar fade-in"
+        loading="lazy"
+        decoding="async"
+      />
+      <h1 class="fade-in">Hi, I'm <span class="highlight">EnderBK</span>.</h1>
+      <p class="tagline fade-in">Doing weird stuff...</p>
+      <div class="cta-buttons fade-in">
+        <a href="#projects" class="btn primary">View Projects</a>
+        <a
+          href="https://github.com/enderbk0"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn secondary"
+        >
+          GitHub Profile
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
     <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-text">
-                <p>
-                    I am a technology enthusiast focused on some general stuffs. 
-                    My work primarily involves <strong>building werid stuffs</strong>, doing werid stuffs, 
-                    and writing <strong>werid stuffs</strong> to automate werid stuffs.
-                </p>
-                <p>
-                    I enjoy doing werid stuff to see werid stuffs and see werid stuff how to make them become werid.
-                </p>
-            </div>
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-text">
+          <p>
+            I’m a technology enthusiast focused on general projects.
+            My work primarily involves <strong>building weird stuff</strong>,
+            doing weird stuff, and writing <strong>weird stuff</strong> to automate weird stuff.
+          </p>
+          <p>
+            I enjoy making weird things, experimenting with weird ideas, and figuring out how to make them even weirder.
+          </p>
         </div>
+      </div>
     </section>
 
     <section id="projects" class="section">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                
-                <article class="project-card">
-                    <div class="card-header">
-                        <h3>Galaxy A11/M11 ROM Builder</h3>
-                        <span class="badge">Shell</span>
-                    </div>
-                    <p>A specialized toolchain fork designed to streamline the custom ROM building process for Samsung Galaxy A11 and M11 devices.</p>
-                    <div class="card-links">
-                        <a href="https://github.com/enderbk0/Custom-Rom-Builder-For-Samsung-Galaxy-A11-M11" target="_blank" aria-label="View ROM Builder Repo">View Repository &rarr;</a>
-                    </div>
-                </article>
+      <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
 
-                <article class="project-card">
-                    <div class="card-header">
-                        <h3>enderbk0.github.io</h3>
-                        <span class="badge">HTML/CSS</span>
-                    </div>
-                    <p>My website hosted on GitHub Pages. Built with clean, optimized CSS.</p>
-                    <div class="card-links">
-                        <a href="https://github.com/enderbk0/enderbk0.github.io" target="_blank" aria-label="View Website Repo">View Repository &rarr;</a>
-                    </div>
-                </article>
-
-                <article class="project-card placeholder">
-                    <h3>More coming soon...</h3>
-                    <p>Currently working on new werid stuffs...</p>
-                </article>
-
+          <!-- UPDATED: Removed Galaxy A11/M11 project -->
+          <article class="project-card">
+            <div class="card-header">
+              <h3>Legacy Device Revival</h3>
+              <span class="badge">Android / Linux</span>
             </div>
+            <p>
+              I’m currently working on reviving older Samsung devices like
+              <strong>SM-T231</strong> and <strong>T230NU</strong>—documenting the process,
+              creating patches/build notes, and extending the life of legacy hardware.
+            </p>
+            <div class="card-links">
+              <a
+                href="https://github.com/enderbk0"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Legacy Device Revival documentation"
+              >
+                View Documentation &rarr;
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="card-header">
+              <h3>enderbk0.github.io</h3>
+              <span class="badge">HTML/CSS</span>
+            </div>
+            <p>My website hosted on GitHub Pages. Built with clean, optimized CSS.</p>
+            <div class="card-links">
+              <a
+                href="https://github.com/enderbk0/enderbk0.github.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View website repository"
+              >
+                View Repository &rarr;
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card placeholder">
+            <h3>More coming soon...</h3>
+            <p>Currently working on new weird stuff...</p>
+          </article>
+
         </div>
+      </div>
     </section>
 
     <section id="skills" class="section alt-bg">
-        <div class="container">
-            <h2 class="section-title">Tech Stack & Interests</h2>
-            <ul class="skills-list">
-                <li><span class="icon">🤖</span> Doing werid stuffs</li>
-                <li><span class="icon">🐚</span> Writing werid stuffs</li>
-                <li><span class="icon">🐧</span> Linux</li>
-                <li><span class="icon">🛠️</span> building werid stuffs</li>
-                <li><span class="icon">📦</span> doing werid git stuffs.</li>
-            </ul>
-        </div>
+      <div class="container">
+        <h2 class="section-title">Tech Stack &amp; Interests</h2>
+        <ul class="skills-list">
+          <li><span class="icon">🤖</span> Doing weird stuff</li>
+          <li><span class="icon">🐚</span> Writing weird stuff</li>
+          <li><span class="icon">🐧</span> Linux</li>
+          <li><span class="icon">🛠️</span> Building weird stuff</li>
+          <li><span class="icon">📦</span> Doing weird Git stuff</li>
+        </ul>
+      </div>
     </section>
 
     <section id="contact" class="section">
-        <div class="container contact-wrapper">
-            <h2 class="section-title">Get In Touch</h2>
-            <p>Interested in werid stuffs on werid stuffs or need help with werid stuffs?</p>
-            <div class="contact-links">
-                <a href="https://github.com/enderbk0" class="btn primary">Follow on GitHub</a>
-                <a href="mailto:enderbk1279@gmail.com" class="btn secondary">Email Me</a>
-            </div>
+      <div class="container contact-wrapper">
+        <h2 class="section-title">Get In Touch</h2>
+        <p>Interested in weird projects or need help with weird stuff?</p>
+        <div class="contact-links">
+          <a
+            href="https://github.com/enderbk0"
+            class="btn primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Follow on GitHub
+          </a>
+          <a href="mailto:enderbk1279@gmail.com" class="btn secondary">Email Me</a>
         </div>
+      </div>
     </section>
+  </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="year"></span> EnderBK. Built with 💻 on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.</p>
-        </div>
-    </footer>
+  <footer>
+    <div class="container">
+      <p>
+        &copy; <span id="year"></span> EnderBK. Built with 💻 on
+        <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GitHub Pages</a>.
+      </p>
+    </div>
+  </footer>
 
-    <script src="assets/js/main.js"></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>
