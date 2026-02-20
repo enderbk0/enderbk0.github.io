@@ -1,154 +1,409 @@
-/* Variables */
+/* =========================
+   Material 3-ish Theme (Light/Dark)
+   - Auto via prefers-color-scheme
+   - Optional manual toggle: set <html data-theme="light|dark">
+   ========================= */
+
+/* Base typography */
 :root {
-    --bg-color: #0d1117;       /* GitHub Dark Dimmed */
-    --card-bg: #161b22;        /* Lighter card background */
-    --text-main: #c9d1d9;      /* Off-white text */
-    --text-muted: #8b949e;     /* Grey text */
-    --accent: #238636;         /* GitHub Green */
-    --accent-hover: #2ea043;   
-    --border: #30363d;
-    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-    --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Motion */
+  --motion-fast: 160ms;
+  --motion-normal: 220ms;
+  --easing-standard: cubic-bezier(.2, 0, 0, 1);
+
+  /* Shape (M3 uses larger radii) */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Elevation (simple) */
+  --shadow-1: 0 1px 2px rgba(0,0,0,.14), 0 1px 3px rgba(0,0,0,.08);
+  --shadow-2: 0 6px 16px rgba(0,0,0,.16);
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--primary) 35%, transparent);
+
+  /* Defaults */
+  color-scheme: light dark;
 }
 
-/* Reset & Base */
+/* ====== LIGHT THEME (Material 3 inspired) ====== */
+:root,
+:root[data-theme="light"] {
+  /* Core */
+  --bg: #FFFBFE;            /* surface */
+  --surface: #FFFBFE;
+  --surface-2: #F7F2FA;     /* surface container */
+  --surface-3: #F3EDF7;     /* slightly deeper container */
+  --text: #1C1B1F;          /* on-surface */
+  --muted: #49454F;         /* on-surface-variant */
+  --outline: #79747E;       /* outline */
+  --outline-variant: #CAC4D0;
+
+  /* Brand / primary */
+  --primary: #6750A4;
+  --on-primary: #FFFFFF;
+  --primary-hover: color-mix(in srgb, var(--primary) 90%, black);
+
+  /* Secondary accent (links) */
+  --link: #1D4ED8; /* readable blue */
+  --link-hover: color-mix(in srgb, var(--link) 88%, black);
+
+  /* Components */
+  --card-bg: var(--surface-2);
+  --border: var(--outline-variant);
+  --nav-bg: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+
+/* ====== DARK THEME (Material 3 inspired) ====== */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F0D13;          /* near-surface */
+    --surface: #141218;
+    --surface-2: #1D1B20;   /* surface container */
+    --surface-3: #2B2930;   /* deeper container */
+    --text: #E6E1E5;        /* on-surface */
+    --muted: #CAC4D0;       /* on-surface-variant-ish */
+    --outline: #938F99;
+    --outline-variant: #49454F;
+
+    --primary: #D0BCFF;
+    --on-primary: #381E72;
+    --primary-hover: color-mix(in srgb, var(--primary) 92%, white);
+
+    --link: #93C5FD;
+    --link-hover: color-mix(in srgb, var(--link) 85%, white);
+
+    --card-bg: var(--surface-2);
+    --border: var(--outline-variant);
+    --nav-bg: color-mix(in srgb, var(--surface) 88%, transparent);
+  }
+}
+
+/* Manual override dark (if you set data-theme="dark") */
+:root[data-theme="dark"] {
+  --bg: #0F0D13;
+  --surface: #141218;
+  --surface-2: #1D1B20;
+  --surface-3: #2B2930;
+  --text: #E6E1E5;
+  --muted: #CAC4D0;
+  --outline: #938F99;
+  --outline-variant: #49454F;
+
+  --primary: #D0BCFF;
+  --on-primary: #381E72;
+  --primary-hover: color-mix(in srgb, var(--primary) 92%, white);
+
+  --link: #93C5FD;
+  --link-hover: color-mix(in srgb, var(--link) 85%, white);
+
+  --card-bg: var(--surface-2);
+  --border: var(--outline-variant);
+  --nav-bg: color-mix(in srgb, var(--surface) 88%, transparent);
+}
+
+/* =========================
+   Reset & Base
+   ========================= */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body { height: 100%; }
+
 body {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    font-family: var(--font-main);
-    line-height: 1.6;
-    scroll-behavior: smooth;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-a { text-decoration: none; color: inherit; transition: 0.2s; }
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--motion-fast) var(--easing-standard),
+              background-color var(--motion-fast) var(--easing-standard),
+              border-color var(--motion-fast) var(--easing-standard),
+              transform var(--motion-fast) var(--easing-standard);
+}
+
 ul { list-style: none; }
 img { max-width: 100%; display: block; }
 
-/* Utilities */
+/* Focus visibility (Material-ish) */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: 10px;
+}
+
+/* Optional skip-link styling (your HTML already references .skip-link) */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 12px;
+  background: var(--primary);
+  color: var(--on-primary);
+  padding: 10px 14px;
+  border-radius: var(--radius-pill);
+  z-index: 2000;
+  box-shadow: var(--shadow-1);
+}
+.skip-link:focus { left: 12px; }
+
+/* =========================
+   Utilities
+   ========================= */
 .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 .section { padding: 80px 0; }
-.section-title { font-size: 2rem; margin-bottom: 40px; text-align: center; color: #fff; }
-.highlight { color: #58a6ff; /* Soft Blue highlight */ }
 
-/* Navbar */
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  text-align: center;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.highlight { color: var(--primary); }
+
+/* =========================
+   Navbar (M3: translucent surface + blur)
+   ========================= */
 .navbar {
-    padding: 20px 0;
-    position: sticky;
-    top: 0;
-    background: rgba(13, 17, 23, 0.95);
-    backdrop-filter: blur(5px);
-    z-index: 1000;
-    border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
 }
-.nav-container { display: flex; justify-content: space-between; align-items: center; }
-.logo { font-weight: bold; font-size: 1.2rem; font-family: var(--font-mono); }
-.nav-links { display: flex; gap: 20px; }
-.nav-links a:hover { color: var(--accent); }
 
-/* Hero */
+.nav-container { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+
+.logo {
+  font-weight: 700;
+  font-size: 1.05rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.nav-links { display: flex; gap: 18px; align-items: center; }
+
+.nav-links a {
+  color: var(--muted);
+  padding: 10px 12px;
+  border-radius: var(--radius-pill);
+}
+.nav-links a:hover {
+  color: var(--text);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+/* =========================
+   Hero
+   ========================= */
 .hero {
-    text-align: center;
-    padding: 100px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  text-align: center;
+  padding: 96px 0 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 .avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 4px solid var(--border);
-    margin-bottom: 20px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-1);
 }
-.hero h1 { font-size: 3rem; margin-bottom: 10px; }
-.tagline { font-size: 1.2rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 30px; }
 
-/* Buttons */
+.hero h1 {
+  font-size: clamp(2.1rem, 4vw, 3rem);
+  margin-bottom: 10px;
+  letter-spacing: -0.03em;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin-bottom: 26px;
+}
+
+/* =========================
+   Buttons (M3: filled + outlined)
+   ========================= */
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  font-weight: 650;
+  border: 1px solid transparent;
+  user-select: none;
+  box-shadow: none;
 }
-.btn.primary { background-color: var(--accent); color: white; }
-.btn.primary:hover { background-color: var(--accent-hover); }
-.btn.secondary { background-color: transparent; border-color: var(--border); color: var(--text-main); margin-left: 10px; }
-.btn.secondary:hover { border-color: var(--text-muted); background-color: var(--card-bg); }
 
-/* Projects Grid */
+.btn.primary {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--shadow-1);
+}
+.btn.primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-2);
+}
+
+.btn.secondary {
+  background-color: transparent;
+  border-color: var(--outline-variant);
+  color: var(--text);
+  margin-left: 10px;
+}
+.btn.secondary:hover {
+  border-color: var(--outline);
+  background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  transform: translateY(-1px);
+}
+
+/* =========================
+   Projects Grid + Cards (M3: surface containers, larger radii, elevation)
+   ========================= */
 .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
+
 .project-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 20px;
-    transition: transform 0.2s, border-color 0.2s;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-1);
+  transition: transform var(--motion-normal) var(--easing-standard),
+              box-shadow var(--motion-normal) var(--easing-standard),
+              border-color var(--motion-normal) var(--easing-standard),
+              background-color var(--motion-normal) var(--easing-standard);
 }
+
 .project-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--text-muted);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2);
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--border));
+  background: color-mix(in srgb, var(--card-bg) 92%, var(--primary) 8%);
 }
-.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.card-header h3 { font-size: 1.2rem; }
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.card-header h3 {
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
 .badge {
-    font-size: 0.8rem;
-    padding: 2px 8px;
-    border-radius: 12px;
-    background: #30363d;
-    color: var(--text-muted);
-    font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--surface-3) 92%, transparent);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  white-space: nowrap;
 }
-.card-links a { color: #58a6ff; font-size: 0.9rem; margin-top: 15px; display: inline-block; }
-.card-links a:hover { text-decoration: underline; }
 
-/* Skills */
+.card-links a {
+  color: var(--link);
+  font-size: 0.95rem;
+  margin-top: 14px;
+  display: inline-block;
+  padding: 8px 10px;
+  border-radius: var(--radius-pill);
+}
+.card-links a:hover {
+  color: var(--link-hover);
+  background: color-mix(in srgb, var(--link) 12%, transparent);
+}
+
+/* =========================
+   Skills
+   ========================= */
 .skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
 }
+
 .skills-list li {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  box-shadow: var(--shadow-1);
 }
 
-/* Contact & Footer */
+/* If you use an alt background section */
+.alt-bg {
+  background: color-mix(in srgb, var(--surface-2) 75%, transparent);
+}
+
+/* =========================
+   Contact & Footer
+   ========================= */
 .contact-wrapper { text-align: center; }
+
 footer {
-    text-align: center;
-    padding: 40px 0;
-    margin-top: 40px;
-    border-top: 1px solid var(--border);
-    color: var(--text-muted);
-    font-size: 0.9rem;
+  text-align: center;
+  padding: 40px 0;
+  margin-top: 40px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.95rem;
 }
-footer a { color: #58a6ff; }
 
-/* Responsive */
+footer a { color: var(--link); }
+footer a:hover { color: var(--link-hover); }
+
+/* =========================
+   Responsive
+   ========================= */
 @media (max-width: 600px) {
-    .hero h1 { font-size: 2rem; }
-    .nav-links { display: none; } /* Simplified for mobile */
-    .btn { display: block; margin: 10px auto; width: 100%; max-width: 300px; }
-    .btn.secondary { margin-left: auto; }
+  .hero { padding: 80px 0 56px; }
+  .nav-links { display: none; }
+  .btn { display: flex; margin: 10px auto; width: 100%; max-width: 320px; }
+  .btn.secondary { margin-left: auto; }
 }
 
-/* Simple Animation Classes */
+/* =========================
+   Simple Animation Classes
+   ========================= */
 .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s forwards;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: fadeInUp 700ms var(--easing-standard) forwards;
 }
+
 @keyframes fadeInUp {
-    to { opacity: 1; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(0); }
 }
