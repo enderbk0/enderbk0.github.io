@@ -6,7 +6,8 @@
   <meta name="description" content="EnderBK" />
   <title>EnderBK</title>
 
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- Cache-bust the CSS so updates actually show -->
+  <link rel="stylesheet" href="assets/css/styles.css?v=20260220" />
 
   <!-- Favicon / icons -->
   <link rel="icon" type="image/png" href="https://github.com/enderbk0.png" />
@@ -41,7 +42,8 @@
         decoding="async"
       />
       <h1 class="fade-in">Hi, I'm <span class="highlight">EnderBK</span>.</h1>
-      <p class="tagline fade-in">Doing weird stuff...</p>
+      <p class="tagline fade-in">Just a guy who does random stuff.</p>
+
       <div class="cta-buttons fade-in">
         <a href="#projects" class="btn primary">View Projects</a>
         <a
@@ -63,88 +65,127 @@
         <div class="about-text">
           <p>
             I’m a technology enthusiast focused on general projects.
-            My work primarily involves <strong>building weird stuff</strong>,
-            doing weird stuff, and writing <strong>weird stuff</strong> to automate weird stuff.
+            My work involves <strong>building weird stuff</strong>,
+            breaking things, fixing things, and documenting what I learn.
           </p>
           <p>
-            I enjoy making weird things, experimenting with weird ideas, and figuring out how to make them even weirder.
+            I like experimenting, reviving old hardware, and seeing how far I can push devices
+            that everyone else forgot about.
           </p>
         </div>
       </div>
     </section>
 
     <section id="projects" class="section">
-  <div class="container">
-    <h2 class="section-title">Featured Projects</h2>
+      <div class="container">
+        <h2 class="section-title">Projects</h2>
 
-    <!-- NOTE: keeping your original class name, but ensuring content renders -->
-    <div class="projects-grid" style="display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
-      
-      <article class="project-card" style="padding:16px; border:1px solid rgba(255,255,255,.15); border-radius:14px;">
-        <div class="card-header" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-          <h3 style="margin:0;">Legacy Device Revival</h3>
-          <span class="badge" style="padding:4px 10px; border-radius:999px; font-size:.85rem; border:1px solid rgba(255,255,255,.15);">
-            Android / Linux
-          </span>
-        </div>
-
-        <p style="margin:12px 0 0;">
-          Reviving older Samsung devices like <strong>SM-T231</strong> and <strong>T230NU</strong>.
-          I document the process, patches, build notes, and tips for keeping legacy hardware useful.
+        <p class="section-subtitle">
+          A few things I’m working on right now. Mostly experiments, hardware revival, and random projects.
         </p>
 
-        <div class="card-links" style="margin-top:12px;">
-          <!-- CHANGE THIS LINK to your actual documentation repo/page -->
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="card-header">
+              <h3>Legacy Device Revival</h3>
+              <span class="badge">Android / Linux</span>
+            </div>
+
+            <p>
+              Reviving older Samsung devices like <strong>SM-T231</strong> and <strong>T230NU</strong>.
+              I document the process, patches, build notes, and tips for keeping legacy hardware useful.
+            </p>
+
+            <div class="card-links">
+              <!-- Replace this with your actual docs repo/page when ready -->
+              <a
+                href="https://github.com/enderbk0"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Legacy Device Revival documentation"
+              >
+                View Documentation &rarr;
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <div class="card-header">
+              <h3>enderbk0.github.io</h3>
+              <span class="badge">HTML/CSS</span>
+            </div>
+
+            <p>
+              My personal website hosted on GitHub Pages. Clean layout, fast loading, and easy to maintain.
+            </p>
+
+            <div class="card-links">
+              <a
+                href="https://github.com/enderbk0/enderbk0.github.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Website repository"
+              >
+                View Repository &rarr;
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card placeholder">
+            <div class="card-header">
+              <h3>More coming soon</h3>
+              <span class="badge">WIP</span>
+            </div>
+
+            <p>
+              I’m always messing with something new. If you’re curious, check my GitHub for the latest chaos.
+            </p>
+
+            <div class="card-links">
+              <a
+                href="https://github.com/enderbk0"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open GitHub profile"
+              >
+                See everything on GitHub &rarr;
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div class="projects-actions">
           <a
             href="https://github.com/enderbk0"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="View Legacy Device Revival documentation"
-            style="text-decoration:none;"
+            class="btn primary"
           >
-            View Documentation &rarr;
+            Browse GitHub
           </a>
-        </div>
-      </article>
 
-      <article class="project-card" style="padding:16px; border:1px solid rgba(255,255,255,.15); border-radius:14px;">
-        <div class="card-header" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-          <h3 style="margin:0;">enderbk0.github.io</h3>
-          <span class="badge" style="padding:4px 10px; border-radius:999px; font-size:.85rem; border:1px solid rgba(255,255,255,.15);">
-            HTML/CSS
-          </span>
-        </div>
-
-        <p style="margin:12px 0 0;">
-          My website hosted on GitHub Pages. Built with clean, optimized CSS.
-        </p>
-
-        <div class="card-links" style="margin-top:12px;">
+          <!-- Optional: change to your docs page -->
           <a
-            href="https://github.com/enderbk0/enderbk0.github.io"
+            href="https://github.com/enderbk0"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="View website repository"
-            style="text-decoration:none;"
+            class="btn secondary"
           >
-            View Repository &rarr;
+            Device Revival Docs
           </a>
         </div>
-      </article>
-
-    </div>
-  </div>
-</section>
+      </div>
+    </section>
 
     <section id="skills" class="section alt-bg">
       <div class="container">
         <h2 class="section-title">Tech Stack &amp; Interests</h2>
         <ul class="skills-list">
-          <li><span class="icon">🤖</span> Doing weird stuff</li>
-          <li><span class="icon">🐚</span> Writing weird stuff</li>
+          <li><span class="icon">🧪</span> Experimenting</li>
+          <li><span class="icon">🛠️</span> Hardware revival</li>
           <li><span class="icon">🐧</span> Linux</li>
-          <li><span class="icon">🛠️</span> Building weird stuff</li>
-          <li><span class="icon">📦</span> Doing weird Git stuff</li>
+          <li><span class="icon">📱</span> Android tinkering</li>
+          <li><span class="icon">📦</span> Git &amp; random scripts</li>
         </ul>
       </div>
     </section>
@@ -152,7 +193,7 @@
     <section id="contact" class="section">
       <div class="container contact-wrapper">
         <h2 class="section-title">Get In Touch</h2>
-        <p>Interested in weird projects or need help with weird stuff?</p>
+        <p>Want to talk about old devices, weird bugs, or random projects?</p>
         <div class="contact-links">
           <a
             href="https://github.com/enderbk0"
