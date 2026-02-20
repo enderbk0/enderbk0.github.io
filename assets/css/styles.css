@@ -1,71 +1,67 @@
 /* =========================
    Material 3-ish Theme (Light/Dark)
-   - Auto via prefers-color-scheme
-   - Optional manual toggle: set <html data-theme="light|dark">
+   Auto via prefers-color-scheme
+   Manual override: <html data-theme="light|dark">
    ========================= */
 
-/* Base typography */
+/* ===== Base tokens / typography / motion ===== */
 :root {
   --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
-  /* Motion */
   --motion-fast: 160ms;
   --motion-normal: 220ms;
   --easing-standard: cubic-bezier(.2, 0, 0, 1);
 
-  /* Shape (M3 uses larger radii) */
   --radius-sm: 12px;
   --radius-md: 16px;
   --radius-lg: 20px;
   --radius-pill: 999px;
 
-  /* Elevation (simple) */
   --shadow-1: 0 1px 2px rgba(0,0,0,.14), 0 1px 3px rgba(0,0,0,.08);
-  --shadow-2: 0 6px 16px rgba(0,0,0,.16);
+  --shadow-2: 0 10px 26px rgba(0,0,0,.18);
   --focus-ring: 0 0 0 3px color-mix(in srgb, var(--primary) 35%, transparent);
 
-  /* Defaults */
   color-scheme: light dark;
 }
 
-/* ====== LIGHT THEME (Material 3 inspired) ====== */
+/* ===== LIGHT THEME ===== */
 :root,
 :root[data-theme="light"] {
-  /* Core */
-  --bg: #FFFBFE;            /* surface */
+  --bg: #FFFBFE;
   --surface: #FFFBFE;
-  --surface-2: #F7F2FA;     /* surface container */
-  --surface-3: #F3EDF7;     /* slightly deeper container */
-  --text: #1C1B1F;          /* on-surface */
-  --muted: #49454F;         /* on-surface-variant */
-  --outline: #79747E;       /* outline */
+  --surface-2: #F7F2FA;
+  --surface-3: #F3EDF7;
+
+  --text: #1C1B1F;
+  --muted: #49454F;
+
+  --outline: #79747E;
   --outline-variant: #CAC4D0;
 
-  /* Brand / primary */
   --primary: #6750A4;
   --on-primary: #FFFFFF;
   --primary-hover: color-mix(in srgb, var(--primary) 90%, black);
 
-  /* Secondary accent (links) */
-  --link: #1D4ED8; /* readable blue */
+  --link: #1D4ED8;
   --link-hover: color-mix(in srgb, var(--link) 88%, black);
 
-  /* Components */
   --card-bg: var(--surface-2);
   --border: var(--outline-variant);
   --nav-bg: color-mix(in srgb, var(--surface) 92%, transparent);
 }
 
-/* ====== DARK THEME (Material 3 inspired) ====== */
+/* ===== DARK THEME (auto) ===== */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0F0D13;          /* near-surface */
+    --bg: #0F0D13;
     --surface: #141218;
-    --surface-2: #1D1B20;   /* surface container */
-    --surface-3: #2B2930;   /* deeper container */
-    --text: #E6E1E5;        /* on-surface */
-    --muted: #CAC4D0;       /* on-surface-variant-ish */
+    --surface-2: #1D1B20;
+    --surface-3: #2B2930;
+
+    --text: #E6E1E5;
+    --muted: #CAC4D0;
+
     --outline: #938F99;
     --outline-variant: #49454F;
 
@@ -82,14 +78,16 @@
   }
 }
 
-/* Manual override dark (if you set data-theme="dark") */
+/* ===== DARK THEME (manual) ===== */
 :root[data-theme="dark"] {
   --bg: #0F0D13;
   --surface: #141218;
   --surface-2: #1D1B20;
   --surface-3: #2B2930;
+
   --text: #E6E1E5;
   --muted: #CAC4D0;
+
   --outline: #938F99;
   --outline-variant: #49454F;
 
@@ -125,23 +123,26 @@ body {
 a {
   text-decoration: none;
   color: inherit;
-  transition: color var(--motion-fast) var(--easing-standard),
-              background-color var(--motion-fast) var(--easing-standard),
-              border-color var(--motion-fast) var(--easing-standard),
-              transform var(--motion-fast) var(--easing-standard);
+  transition:
+    color var(--motion-fast) var(--easing-standard),
+    background-color var(--motion-fast) var(--easing-standard),
+    border-color var(--motion-fast) var(--easing-standard),
+    transform var(--motion-fast) var(--easing-standard),
+    box-shadow var(--motion-fast) var(--easing-standard);
 }
 
 ul { list-style: none; }
 img { max-width: 100%; display: block; }
 
-/* Focus visibility (Material-ish) */
 :focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
   border-radius: 10px;
 }
 
-/* Optional skip-link styling (your HTML already references .skip-link) */
+/* =========================
+   Skip link
+   ========================= */
 .skip-link {
   position: absolute;
   left: -999px;
@@ -156,23 +157,34 @@ img { max-width: 100%; display: block; }
 .skip-link:focus { left: 12px; }
 
 /* =========================
-   Utilities
+   Layout utilities
    ========================= */
 .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
 .section { padding: 80px 0; }
+
+/* Prevent “big blank space” from accidental min-heights elsewhere */
+.section, .container, .projects-grid, .project-card { min-height: 0; }
 
 .section-title {
   font-size: 2rem;
-  margin-bottom: 40px;
+  margin-bottom: 22px;
   text-align: center;
   color: var(--text);
   letter-spacing: -0.02em;
 }
 
+.section-subtitle {
+  max-width: 760px;
+  margin: 0 auto 26px;
+  text-align: center;
+  color: var(--muted);
+}
+
 .highlight { color: var(--primary); }
 
 /* =========================
-   Navbar (M3: translucent surface + blur)
+   Navbar
    ========================= */
 .navbar {
   padding: 16px 0;
@@ -185,17 +197,21 @@ img { max-width: 100%; display: block; }
   border-bottom: 1px solid var(--border);
 }
 
-.nav-container { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
 
 .logo {
-  font-weight: 700;
+  font-weight: 750;
   font-size: 1.05rem;
   font-family: var(--font-mono);
   letter-spacing: 0.02em;
-  color: var(--text);
 }
 
-.nav-links { display: flex; gap: 18px; align-items: center; }
+.nav-links { display: flex; gap: 10px; align-items: center; }
 
 .nav-links a {
   color: var(--muted);
@@ -213,6 +229,9 @@ img { max-width: 100%; display: block; }
 .hero {
   text-align: center;
   padding: 96px 0 72px;
+}
+
+.hero-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -234,14 +253,21 @@ img { max-width: 100%; display: block; }
 }
 
 .tagline {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--muted);
   font-family: var(--font-mono);
-  margin-bottom: 26px;
+  margin-bottom: 20px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 /* =========================
-   Buttons (M3: filled + outlined)
+   Buttons
    ========================= */
 .btn {
   display: inline-flex;
@@ -254,6 +280,7 @@ img { max-width: 100%; display: block; }
   border: 1px solid transparent;
   user-select: none;
   box-shadow: none;
+  cursor: pointer;
 }
 
 .btn.primary {
@@ -271,7 +298,6 @@ img { max-width: 100%; display: block; }
   background-color: transparent;
   border-color: var(--outline-variant);
   color: var(--text);
-  margin-left: 10px;
 }
 .btn.secondary:hover {
   border-color: var(--outline);
@@ -280,12 +306,27 @@ img { max-width: 100%; display: block; }
 }
 
 /* =========================
-   Projects Grid + Cards (M3: surface containers, larger radii, elevation)
+   About section text
+   ========================= */
+.about-text {
+  max-width: 760px;
+  margin: 0 auto;
+  color: var(--muted);
+  display: grid;
+  gap: 12px;
+}
+.about-text strong { color: var(--text); }
+
+/* =========================
+   Projects
    ========================= */
 .projects-grid {
+  /* THIS fixes most “blank grid” issues */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
+  align-items: stretch;
+  margin-top: 14px;
 }
 
 .project-card {
@@ -294,10 +335,14 @@ img { max-width: 100%; display: block; }
   border-radius: var(--radius-lg);
   padding: 20px;
   box-shadow: var(--shadow-1);
-  transition: transform var(--motion-normal) var(--easing-standard),
-              box-shadow var(--motion-normal) var(--easing-standard),
-              border-color var(--motion-normal) var(--easing-standard),
-              background-color var(--motion-normal) var(--easing-standard);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition:
+    transform var(--motion-normal) var(--easing-standard),
+    box-shadow var(--motion-normal) var(--easing-standard),
+    border-color var(--motion-normal) var(--easing-standard),
+    background-color var(--motion-normal) var(--easing-standard);
 }
 
 .project-card:hover {
@@ -307,12 +352,18 @@ img { max-width: 100%; display: block; }
   background: color-mix(in srgb, var(--card-bg) 92%, var(--primary) 8%);
 }
 
+/* Placeholder card styling */
+.project-card.placeholder {
+  background: color-mix(in srgb, var(--card-bg) 90%, transparent);
+  border-style: dashed;
+  opacity: 0.95;
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  margin-bottom: 10px;
 }
 
 .card-header h3 {
@@ -331,17 +382,34 @@ img { max-width: 100%; display: block; }
   white-space: nowrap;
 }
 
+.project-card p {
+  color: var(--muted);
+}
+
+/* Push links to bottom if you want consistent card height */
+.card-links { margin-top: auto; }
+
 .card-links a {
   color: var(--link);
   font-size: 0.95rem;
-  margin-top: 14px;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 8px 10px;
   border-radius: var(--radius-pill);
 }
 .card-links a:hover {
   color: var(--link-hover);
   background: color-mix(in srgb, var(--link) 12%, transparent);
+}
+
+/* Extra actions row under projects */
+.projects-actions {
+  margin-top: 26px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* =========================
@@ -363,16 +431,27 @@ img { max-width: 100%; display: block; }
   box-shadow: var(--shadow-1);
 }
 
-/* If you use an alt background section */
+/* Alternate background sections */
 .alt-bg {
   background: color-mix(in srgb, var(--surface-2) 75%, transparent);
 }
 
 /* =========================
-   Contact & Footer
+   Contact
    ========================= */
 .contact-wrapper { text-align: center; }
 
+.contact-links {
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* =========================
+   Footer
+   ========================= */
 footer {
   text-align: center;
   padding: 40px 0;
@@ -391,12 +470,12 @@ footer a:hover { color: var(--link-hover); }
 @media (max-width: 600px) {
   .hero { padding: 80px 0 56px; }
   .nav-links { display: none; }
-  .btn { display: flex; margin: 10px auto; width: 100%; max-width: 320px; }
-  .btn.secondary { margin-left: auto; }
+  .btn { width: 100%; max-width: 320px; }
+  .cta-buttons { width: 100%; }
 }
 
 /* =========================
-   Simple Animation Classes
+   Animation
    ========================= */
 .fade-in {
   opacity: 0;
